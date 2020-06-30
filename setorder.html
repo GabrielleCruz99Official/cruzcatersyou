@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/common.css">
 </head>
 <body>
     <nav>
-        <a>Home</a> <!--add logo inside-->
-        <a>Set Menu</a>
-        <a>Set Orders</a>
+        <a href="setmenu.html" id="left">Set Menu</a>
+        <a href="index.html"><img src="img/logo2.png" width="105" height="75"></a> <!--add logo inside-->
+        <a href="setorder.html" id="right">Set Orders</a>
     </nav>
+    <!--order form that calls the week's menu -->
+    <form id="menuorder" onSubmit="return false;"></form>
 </body>
 </html>
