@@ -7,20 +7,18 @@
     <script src="js/common.js"></script>
     <script src="js/setmenu.js"></script>
 </head>
-<body>
+<body onload="loadSetMenu();">
     <nav>
         <a href="setmenu.html" id="left">Set Menu</a>
         <a href="index.html"><img src="img/logo2.png" width="105" height="75"></a> <!--add logo inside-->
         <a href="setorder.html" id="right">Set Orders</a>
     </nav>
-
-    <button onclick="testItem();">Test</button>
     <hr>
     <!--table structure: Name - Add Button -->
     <label for="menuchoices">Food Item List</label>
     <table id="menuchoices"></table>
 
     <!--table structure: Name - Remove Button -->
-    <table id="picked"></table>
+    <table id="menupicked"></table>
 </body>
 </html>
