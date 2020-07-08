@@ -61,3 +61,7 @@ function removeItem(code){
     loadSetMenu();
     loadPickedMenu();
 }
+
+function saveMenu(){
+
+}
