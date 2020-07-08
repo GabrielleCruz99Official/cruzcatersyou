@@ -1,5 +1,8 @@
 1T-cruzcatersyou-final
 ==
+Cours à repasser
+--
+Aspects logique et programmation
 
 Présentation de l'équipe
 --
@@ -16,4 +19,9 @@ Aspects implémentés
 --
 Ce site web sert à mettre en ordre 
 les entrées planifiées pour chaque semaine, de prendre les nombres
-des commandes pour chaque entrée, et de calculer le gain total.
+des commandes pour chaque entrée, et de calculer le montant total
+pour chaque semaine.
+
+Lien github
+--
+https://github.com/JhandarTheUnhallowed/cruzcatersyou

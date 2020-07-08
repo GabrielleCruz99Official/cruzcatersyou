@@ -1,34 +1,63 @@
 "use strict"
 
 let sampleMenu = {
-    'Kare-Kare': 10,
-    'Beef Caldereta': 12,
-    'Cheesecake': 6
+    ENT01 : {Name: "Kare-Kare", Type: "Entree", Price: 10, Selected: false},
+    ENT02 : {Name: "Beef Caldereta", Type: "Entree" , Price: 12, Selected: false},
+    DES01 : {Name: "Mini Cheesecake", Type: "Dessert", Price: 6, Selected: false}
 };
+
+let pickedMenu = {};
+
 function loadSample(){
-    let addTable = '';
-    addTable += "<thead><tr><th>Item</th><th>Price</th><th>Add?</th></tr></thead><tbody>";
+    let sampleTable = '';
+    sampleTable += "<thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>";
     for(let item of Object.keys(sampleMenu)){
-        addTable += "<tr><td>" + item + "</td><td>" + sampleMenu[item]
-            + "€</td><td><button onclick='addItem()'>Add</button></td></tr>";
+        sampleTable += "<tr><td>" + sampleMenu[item].Name + "</td><td>" + sampleMenu[item].Price
+            + "€</td><td><input type='checkbox' onselect='switchState(\'" + item + "\')' </td></tr>";
     }
-    addTable += "</tbody>";
-    gid('menuchoices').innerHTML = addTable;
+    sampleTable += "</tbody>";
+    gid('menuchoices').innerHTML = sampleTable;
 }
 
-function loadSetMenu(){
+function loadSetMenu() {
     loadSample();
+    /* loadSampleTable();
+    loadPickedTable();
+     */
 }
 
-function addItem(item){
-    let addChoice = '';
-
-    addChoice += "<thead><tr><th>Item</th><th>Remove?</th></tr></thead><tbody>";
-    addChoice += "<tr id=" + item + "><td>" + item + "</td><td><button onclick='removeItem(item)'>Add</button></td></tr>";
-    addChoice += "</tbody>";
-    gid('menupicked').innerHTML = addChoice;
+function switchState(code){
+    if(sampleMenu[code].Selected == false){
+        sampleMenu[code].Selected = true;
+        pickedMenu[code] = sampleMenu[code];
+    } else {
+        sampleMenu[code].Selected = false;
+        delete pickedMenu[code];
+    }
+    loadPickedMenu();
 }
 
-function removeItem(){
+function addItem(code){
+    pickedMenu.code = sampleMenu.code;
+    delete sampleMenu.code;
+    loadSetMenu();
+    loadPickedMenu();
+}
 
+function loadPickedMenu(){
+    let pickedTable = '';
+    pickedTable += "<thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>";
+    for(let item of Object.keys(pickedMenu)){
+        pickedTable += "<tr><td>" + pickedMenu[item].Name + "</td><td>" + pickedMenu[item].Price
+            + "€</td></tr>";
+    }
+    pickedTable += "</tbody>";
+    gid('menupicked').innerHTML = pickedTable;
+}
+
+function removeItem(code){
+    sampleMenu.code = pickedMenu.code;
+    delete pickedMenu.code;
+    loadSetMenu();
+    loadPickedMenu();
 }
