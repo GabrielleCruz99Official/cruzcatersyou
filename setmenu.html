@@ -7,24 +7,25 @@
     <script src="js/common.js"></script>
     <script src="js/setmenu.js"></script>
 </head>
-<body onload="loadSetMenu();">
+<body onload="loadSample();">
     <nav>
         <a href="index.html"><img src="img/logo2.png" width="105" height="75"></a> <!--add logo inside-->
     </nav>
     <hr>
     <form id='menuForm' onsubmit="saveMenu();">
         <legend>Appetizers</legend>
-        <fieldset>
+        <fieldset id="appetizer">
 
         </fieldset>
         <legend>Main Course</legend>
-        <fieldset>
+        <fieldset id="main">
 
         </fieldset>
         <legend>Dessert</legend>
-        <fieldset>
+        <fieldset id="dessert">
 
         </fieldset>
+        <input type="submit" value="Set This Week's Menu">
     </form>
 </body>
 </html>

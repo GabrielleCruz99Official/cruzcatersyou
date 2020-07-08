@@ -1,67 +1,40 @@
 "use strict"
 
 let sampleMenu = {
-    ENT01 : {Name: "Kare-Kare", Type: "Entree", Price: 10, Selected: false},
-    ENT02 : {Name: "Beef Caldereta", Type: "Entree" , Price: 12, Selected: false},
-    DES01 : {Name: "Mini Cheesecake", Type: "Dessert", Price: 6, Selected: false}
+    ENT01 : {name: "Kare-Kare", course: "Main", price: 10},
+    ENT02 : {name: "Beef Caldereta", course: "Main" , price: 12},
+    DES01 : {name: "Mini Cheesecake", course: "Dessert", price: 6}
 };
 
 let pickedMenu = {};
 
-function loadSample(){
-    let sampleTable = '';
-    sampleTable += "<thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>";
-    for(let item of Object.keys(sampleMenu)){
-        sampleTable += "<tr><td>" + sampleMenu[item].Name + "</td><td>" + sampleMenu[item].Price
-            + "€</td><td><input type='checkbox' onselect='switchState(\'" + item + "\')' </td></tr>";
+function loadSample() {
+    let SAMPLE_APP = '';
+    let SAMPLE_MAIN = '';
+    let SAMPLE_DESSERT = '';
+    let SAMPLEMENU_ID = Object.keys(sampleMenu);
+    for (let id of SAMPLEMENU_ID) {
+        if (sampleMenu[id].course == 'Appetizer'){
+            SAMPLE_APP += "<input type='checkbox' value='"
+                + sampleMenu[id].name + "'>"
+                + sampleMenu[id].name + " : "
+                + sampleMenu[id].price + "€ <br>";
+        }else if(sampleMenu[id].course == 'Main') {
+            SAMPLE_MAIN += "<input type='checkbox' value='"
+                + sampleMenu[id].name + "'>"
+                + sampleMenu[id].name + " : "
+                + sampleMenu[id].price + "€ <br>";
+        }else if(sampleMenu[id].course == 'Dessert') {
+            SAMPLE_DESSERT += "<input type='checkbox' value='"
+                + sampleMenu[id].name + "'>"
+                + sampleMenu[id].name + " : "
+                + sampleMenu[id].price + "€ <br>";
+        }else{
+            console.log('Error!');
+        }
+
     }
-    sampleTable += "</tbody>";
-    gid('menuchoices').innerHTML = sampleTable;
-}
-
-function loadSetMenu() {
-    loadSample();
-    /* loadSampleTable();
-    loadPickedTable();
-     */
-}
-
-function switchState(code){
-    if(sampleMenu[code].Selected == false){
-        sampleMenu[code].Selected = true;
-        pickedMenu[code] = sampleMenu[code];
-    } else {
-        sampleMenu[code].Selected = false;
-        delete pickedMenu[code];
-    }
-    loadPickedMenu();
-}
-
-function addItem(code){
-    pickedMenu.code = sampleMenu.code;
-    delete sampleMenu.code;
-    loadSetMenu();
-    loadPickedMenu();
-}
-
-function loadPickedMenu(){
-    let pickedTable = '';
-    pickedTable += "<thead><tr><th>Item</th><th>Price</th></tr></thead><tbody>";
-    for(let item of Object.keys(pickedMenu)){
-        pickedTable += "<tr><td>" + pickedMenu[item].Name + "</td><td>" + pickedMenu[item].Price
-            + "€</td></tr>";
-    }
-    pickedTable += "</tbody>";
-    gid('menupicked').innerHTML = pickedTable;
-}
-
-function removeItem(code){
-    sampleMenu.code = pickedMenu.code;
-    delete pickedMenu.code;
-    loadSetMenu();
-    loadPickedMenu();
-}
-
-function saveMenu(){
-
+    gid('appetizer').innerHTML = SAMPLE_APP;
+    gid('main').innerHTML = SAMPLE_MAIN;
+    gid('dessert').innerHTML = SAMPLE_DESSERT;
 }
