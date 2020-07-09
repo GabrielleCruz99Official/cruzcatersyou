@@ -1,5 +1,9 @@
 "use strict"
 
-function gid(id){
-    return document.getElementById(id);
+function $(query){
+    return document.querySelector(query);
+}
+
+function $all(query){
+    return document.querySelectorAll(query);
 }

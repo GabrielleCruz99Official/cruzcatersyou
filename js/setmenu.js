@@ -6,7 +6,7 @@ let sampleMenu = {
     DES01 : {name: "Mini Cheesecake", course: "Dessert", price: 6}
 };
 
-let pickedMenu = {};
+let pickedMenu = [];
 
 function loadSample() {
     let SAMPLE_APP = '';
@@ -15,17 +15,17 @@ function loadSample() {
     let SAMPLEMENU_ID = Object.keys(sampleMenu);
     for (let id of SAMPLEMENU_ID) {
         if (sampleMenu[id].course == 'Appetizer'){
-            SAMPLE_APP += "<input type='checkbox' value='"
+            SAMPLE_APP += "<input type='checkbox' class='menu' value='"
                 + sampleMenu[id].name + "'>"
                 + sampleMenu[id].name + " : "
                 + sampleMenu[id].price + "€ <br>";
         }else if(sampleMenu[id].course == 'Main') {
-            SAMPLE_MAIN += "<input type='checkbox' value='"
+            SAMPLE_MAIN += "<input type='checkbox' class='menu' value='"
                 + sampleMenu[id].name + "'>"
                 + sampleMenu[id].name + " : "
                 + sampleMenu[id].price + "€ <br>";
         }else if(sampleMenu[id].course == 'Dessert') {
-            SAMPLE_DESSERT += "<input type='checkbox' value='"
+            SAMPLE_DESSERT += "<input type='checkbox' class='menu' value='"
                 + sampleMenu[id].name + "'>"
                 + sampleMenu[id].name + " : "
                 + sampleMenu[id].price + "€ <br>";
@@ -34,7 +34,23 @@ function loadSample() {
         }
 
     }
-    gid('appetizer').innerHTML = SAMPLE_APP;
-    gid('main').innerHTML = SAMPLE_MAIN;
-    gid('dessert').innerHTML = SAMPLE_DESSERT;
+    $('#appetizer').innerHTML = SAMPLE_APP;
+    $('#main').innerHTML = SAMPLE_MAIN;
+    $('#dessert').innerHTML = SAMPLE_DESSERT;
 }
+
+function saveMenu(){
+    let CHOSEN_MENU = $all('input[type=checkbox]:checked');
+    let SAMPLEMENU_ID = Object.keys(sampleMenu);
+    for(let chosen of CHOSEN_MENU){
+        for(let id of SAMPLEMENU_ID){
+            if(chosen.value == sampleMenu[id].name){
+                pickedMenu.push({name: sampleMenu[id].name, price: sampleMenu[id].price});
+            }
+        }
+    }
+    console.log(pickedMenu);
+}
+
+
+

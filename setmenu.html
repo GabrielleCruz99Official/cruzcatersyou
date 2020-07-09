@@ -7,12 +7,12 @@
     <script src="js/common.js"></script>
     <script src="js/setmenu.js"></script>
 </head>
-<body onload="loadSample();">
+<body onload="loadSample(this);">
     <nav>
         <a href="index.html"><img src="img/logo2.png" width="105" height="75"></a> <!--add logo inside-->
     </nav>
     <hr>
-    <form id='menuForm' onsubmit="saveMenu();">
+    <form id='menuForm' onsubmit="saveMenu(); return false;">
         <legend>Appetizers</legend>
         <fieldset id="appetizer">
 
