@@ -45,7 +45,7 @@ function saveMenu(){
     for(let chosen of CHOSEN_MENU){
         for(let id of SAMPLEMENU_ID){
             if(chosen.value == sampleMenu[id].name){
-                pickedMenu.push({name: sampleMenu[id].name, price: sampleMenu[id].price});
+                pickedMenu.push({id: id, name: sampleMenu[id].name, price: sampleMenu[id].price});
             }
         }
     }

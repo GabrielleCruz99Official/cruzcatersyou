@@ -11,12 +11,16 @@
         <a href="index.html"><img src="img/logo2.png" width="105" height="75"></a> <!--add logo inside-->
     </nav>
     <!--order form that calls the week's menu -->
-    <fieldset>
-        <label class="labels" for="menuorder">New Order</label>
-        <form id="menuorder" onSubmit="return false;">
-            <label for="name">Name:</label>
-            <input type="name">
-        </form>
-    </fieldset>
+    <label class="labels" for="orderform">New Order</label>
+    <form id="orderform" onSubmit="return false;">
+        <fieldset>
+            <label for="client">Name:</label>
+            <input type="text" size="32" name="client" id="client" placeholder="Client Name">
+        </fieldset>
+        <fieldset id="ordermenu">
+
+        </fieldset>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
