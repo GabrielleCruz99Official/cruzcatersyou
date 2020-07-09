@@ -50,6 +50,7 @@ function saveMenu(){
         }
     }
     console.log(pickedMenu);
+    //add HTTPRequest to add to DB
 }
 
 
