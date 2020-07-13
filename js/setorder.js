@@ -17,5 +17,31 @@ let sampleMenu = [
 
 function loadSampleMenu(){
     let sampleText = '';
+    sampleMenu.map(function(x, index){
+        sampleText += "<tr><td>" + x.name + "</td><td class='price'>"
+            + x.price + "€</td>"
+            +"<td><input type='number' class='quantity' onchange='console.log(this.value)'</td>"
+            +"<td class='subtotal'>0</td></tr>"
+    });
     $('#ordermenu').innerHTML = sampleText;
+}
+
+/*
+function subtotal(quantity, price, index){
+     = (quantity*price).toFixed(2);
+}
+
+$('.quantity:nth-child()')
+*/
+
+const QUANTITY = $all('input[type=number]');
+const SUBTOTAL = $all('.subtotal');
+
+function update(index){
+
+}
+
+
+function load(){
+     loadSampleMenu();
 }

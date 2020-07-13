@@ -5,8 +5,8 @@
     <title>cruzcatersyou - Set Order</title>
     <link rel="stylesheet" href="css/common.css">
     <script src="js/common.js"></script>
-    <script src="js/setmenu.js"></script></head>
-<body>
+    <script src="js/setorder.js"></script></head>
+<body onload="load();">
     <nav>
         <a href="index.html"><img src="img/logo2.png" width="105" height="75"></a> <!--add logo inside-->
     </nav>
@@ -16,9 +16,24 @@
         <fieldset>
             <label for="client">Name:</label>
             <input type="text" size="32" name="client" id="client" placeholder="Client Name">
+            <br>
+            <label for="address">Address:</label>
+            <input type="textarea" name="address" id="address" placeholder="Address">
         </fieldset>
-        <fieldset id="ordermenu">
+        <fieldset>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="ordermenu">
 
+                </tbody>
+            </table>
         </fieldset>
         <button type="submit">Submit</button>
     </form>
