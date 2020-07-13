@@ -20,27 +20,33 @@ function loadSampleMenu(){
     sampleMenu.map(function(x, index){
         sampleText += "<tr><td>" + x.name + "</td><td class='price'>"
             + x.price + "€</td>"
-            +"<td><input type='number' class='quantity' onchange='console.log(this.value)'</td>"
+            +"<td><input type='number' class='quantity' value='0' onchange='subtotal(this.value," + x.price + "," + index +")'</td>"
             +"<td class='subtotal'>0</td></tr>"
     });
+    sampleText += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
     $('#ordermenu').innerHTML = sampleText;
 }
 
-/*
+let SUBTOTAL = $all('.subtotal');
+
+function updateQuery(){
+    SUBTOTAL = $all('.subtotal');
+}
+
+
 function subtotal(quantity, price, index){
-     = (quantity*price).toFixed(2);
+    updateQuery();
+    SUBTOTAL[index].textContent = (quantity * price).toFixed(2);
+    updateTotal();
 }
 
-$('.quantity:nth-child()')
-*/
-
-const QUANTITY = $all('input[type=number]');
-const SUBTOTAL = $all('.subtotal');
-
-function update(index){
-
+function updateTotal(){
+    let total = 0;
+    for(let i=0;i<SUBTOTAL.length;i++){
+        total += parseInt(SUBTOTAL[i].innerHTML);
+    }
+    $('.total').innerHTML = total;
 }
-
 
 function load(){
      loadSampleMenu();
