@@ -2,9 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20da06f6-675a-4cf9-ae94-dc802e89fc86" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/js/displayweekmenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sql/procservice.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/common.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/setmenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/setmenu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/setorder.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/setorder.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setmenu.html" beforeDir="false" afterPath="$PROJECT_DIR$/setmenu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/setorder.html" beforeDir="false" afterPath="$PROJECT_DIR$/setorder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/tables.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +84,8 @@
       <workItem from="1593701981649" duration="1253000" />
       <workItem from="1593855519941" duration="4323000" />
       <workItem from="1594038731081" duration="29901000" />
-      <workItem from="1594587513947" duration="11610000" />
+      <workItem from="1594587513947" duration="12458000" />
+      <workItem from="1594723652906" duration="9894000" />
     </task>
     <servers />
   </component>

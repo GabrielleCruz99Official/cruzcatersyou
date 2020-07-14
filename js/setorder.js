@@ -43,9 +43,9 @@ function subtotal(quantity, price, index){
 function updateTotal(){
     let total = 0;
     for(let i=0;i<SUBTOTAL.length;i++){
-        total += parseInt(SUBTOTAL[i].innerHTML);
+        total += parseFloat(SUBTOTAL[i].innerHTML);
     }
-    $('.total').innerHTML = total;
+    $('.total').innerHTML = total.toFixed(2);
 }
 
 function load(){
