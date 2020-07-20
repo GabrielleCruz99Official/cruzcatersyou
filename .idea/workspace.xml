@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="20da06f6-675a-4cf9-ae94-dc802e89fc86" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/displayweekmenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/displayweekmenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/setmenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/setmenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/procservice.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/procservice.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +77,12 @@
       <workItem from="1593855519941" duration="4323000" />
       <workItem from="1594038731081" duration="29901000" />
       <workItem from="1594587513947" duration="12458000" />
-      <workItem from="1594723652906" duration="11169000" />
+      <workItem from="1594723652906" duration="11794000" />
+      <workItem from="1594837282244" duration="1211000" />
+      <workItem from="1594924547702" duration="1000" />
+      <workItem from="1594924793276" duration="8498000" />
+      <workItem from="1595074660370" duration="1000" />
+      <workItem from="1595085570621" duration="7461000" />
     </task>
     <servers />
   </component>

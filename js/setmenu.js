@@ -84,14 +84,47 @@ function saveMenu(){
     for(let chosen of CHOSEN_MENU){
         for(let id in menu){
             if(chosen.value == menu[id].itemName){
-                pickedMenu.push({orderID: menu[id].itemID, orderName: menu[id].itemName, orderPrice: menu[id].itemPrice});
+                pickedMenu.push({weekItemID: menu[id].itemID, weekItem: menu[id].itemName, weekItemPrice: menu[id].itemPrice});
             }
         }
     }
     console.log(pickedMenu);
-    //add HTTPRequest to add to DB
-    return false;
+    clearmenu();
+    for(let item of pickedMenu){
+        setmenu(item);
+    }
+    alert("This week's menu is set!");
+    window.location.replace("/");
 }
 
+function clearmenu(){
+    let clear = new XMLHttpRequest();
+    clear.onreadystatechange = function() {
+        if(this.statechange == 4 && this.status == 200){
+            console.log(this.responseText);
+        }
+    };
+    clear.open("get", "/clearmenu", true);
+    clear.send();
+}
 
+function setmenu(object){
+    let url = seturl(object);
+    let setWeekMenu = new XMLHttpRequest();
+    setWeekMenu.onreadystatechange = function() {
+        if(this.statechange == 4 && this.status == 200){
+            console.log(this.responseText);
+        }
+    };
+    setWeekMenu.open("get", url, true);
+    setWeekMenu.send();
+}
+
+function seturl(object){
+    let urlbase = "/setweek?";
+    urlbase += "weekItemID=" + object['weekItemID'];
+    urlbase += "&weekItem=" + object['weekItem'];
+    urlbase += "&weekItemPrice" + object['weekItemPrice'];
+    return urlbase;
+}
 
