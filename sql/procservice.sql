@@ -38,18 +38,3 @@ BEGIN
 END;
 
 CREATE SERVICE 'clearmenu' TYPE JSON AUTHORIZATION OFF USER "DBA" URL ON METHODS 'GET' AS CALL ClearMenu();
-
-CREATE PROCEDURE "DBA"."parseData"(in data text)
-RESULT (status int)
-BEGIN
-     DECLARE json_data text;
-     SET json_data = in_data;
-     CALL sp_parse_json ( 'sql_array', json_data);
-     SELECT sql_array [[row_num]] .orderID, sql_array [[row_num]] .orderName, sql_array [[row_num]] .orderPrice FROM sa_rowgenerate (1, 10);
-    IF EXISTS (SELECT * FROM caterMenu)
-            THEN SET @status = 200;
-        ELSE BEGIN
-            SET @status = 501;
-            END
-        ENDIF;
-END;

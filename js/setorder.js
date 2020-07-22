@@ -1,13 +1,4 @@
 'use strict'
-let pickedMenu = []; //get data using HTTPRequest
-
-function loadMenuTable(){
-    //using pickedMenu to load table to html
-    let tableLoad = '';
-    for(item in pickedMenu){
-        tableload += item.name + item.price; //+ quantity (for calculations)
-    }
-}
 
 let sampleMenu = [
     {id: 'APP01', name: 'Salad', price: 5},
@@ -26,13 +17,32 @@ function loadSampleMenu(){
     sampleText += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
     $('#ordermenu').innerHTML = sampleText;
 }
+/*
+let chosenMenu = [];
+let pickedMenu = new XMLHttpRequest(); //get data using HTTPRequest
+pickedMenu.open("get", "/weekchosen", true);
+pickedMenu.onload = function(){
+    chosenMenu = JSON.parse(this.responseText);
+}
+pickedMenu.send();
 
+function loadMenu(){
+    let chosenTable = '';
+    chosenMenu.map(function(x, index){
+        chosenTable += "<tr><td>" + x.menuItem + "</td><td class='price'>"
+            + x.menuItemPrice + "€</td>"
+            +"<td><input type='number' class='quantity' value='0' onchange='subtotal(this.value," + x.menuItemPrice + "," + index +")'</td>"
+            +"<td class='subtotal'>0</td></tr>"
+    });
+    chosenTable += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
+    $('#ordermenu').innerHTML = chosenTable;
+}
+*/
 let SUBTOTAL = $all('.subtotal');
 
 function updateQuery(){
     SUBTOTAL = $all('.subtotal');
 }
-
 
 function subtotal(quantity, price, index){
     updateQuery();
@@ -50,4 +60,10 @@ function updateTotal(){
 
 function load(){
      loadSampleMenu();
+     //loadMenu();
+}
+
+function addOrder(form){
+    alert("Order has been confirmed!");
+    window.location.replace("/");
 }

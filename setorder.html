@@ -12,7 +12,7 @@
     </nav>
     <!--order form that calls the week's menu -->
     <label class="labels" for="orderform">New Order</label>
-    <form id="orderform" onSubmit="return false;">
+    <form id="orderform" onSubmit="addOrder(this);">
         <fieldset>
             <label for="client">Name:</label>
             <input type="text" size="32" name="client" id="client" placeholder="Client Name">
@@ -35,7 +35,7 @@
                 </tbody>
             </table>
         </fieldset>
-        <button type="submit">Submit</button>
+        <button type="submit">Add Order</button>
     </form>
 </body>
 </html>
