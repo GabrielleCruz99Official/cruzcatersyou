@@ -6,13 +6,13 @@ CREATE TABLE caterItems (
 	CONSTRAINT pkID PRIMARY KEY(itemID)
 );
 
-CREATE TABLE caterMenu (
-	menuID varchar(5) NOT NULL,
-	menuItem text NOT NULL,
-	menuItemPrice int NOT NULL,
-	CONSTRAINT pkMenuID PRIMARY KEY(menuID),
-	CONSTRAINT fkID FOREIGN KEY(menuID) REFERENCES caterItems(itemID)
-);
+CREATE TABLE caterWeekMenu (
+  	weekItemID varchar(5) NOT NULL,
+  	weekItem text NOT NULL,
+  	weekItemPrice int NOT NULL,
+  	CONSTRAINT pkWeekItem PRIMARY KEY(weekItem),
+  	CONSTRAINT fkID FOREIGN KEY(weekItemID) REFERENCES caterItems(itemID)
+  );
 
 CREATE TABLE caterOrders (
 	orderName varchar(16) NOT NULL,

@@ -7,21 +7,23 @@ END
 
 CREATE SERVICE 'weekmenu' TYPE JSON AUTHORIZATION OFF USER "DBA" URL ON METHODS 'GET' AS CALL WeekMenu();
 
-CREATE PROCEDURE "DBA"."SetMenu"(in orderID varchar(5), in orderName text, in orderPrice integer)
+CREATE PROCEDURE "DBA"."SetMenu"(in chosenItemID varchar(5), in chosenItem text, in chosenItemPrice integer)
 RESULT (status int)
 BEGIN
-    DECLARE @status int;
-    INSERT INTO caterMenu(menuID, menuItem, menuItemPrice) values
-    (in_orderID, in_orderName, in_orderPrice);
-    IF EXISTS (SELECT menuID FROM caterMenu WHERE menuID = in_orderID)
-        THEN SET @status = 200;
-    ELSE BEGIN
-        SET @status = 501;
-        END
-    ENDIF;
+   DECLARE @status int;
+   IF (existentItem(weekItemID) = 1)
+   THEN BEGIN
+        INSERT INTO caterWeekMenu(weekItemID, weekItem, weekItemPrice) VALUES
+        (chosenItemID, chosenItem, chosenItemPrice);
+        SET @status = 200;
+   END
+   ELSE BEGIN
+        SET @status = 503;
+   END
+   ENDIF;
 END
 
-CREATE SERVICE 'setweek' TYPE JSON AUTHORIZATION OFF USER "DBA" URL ON METHODS 'GET' AS CALL SetMenu(:orderID, :orderName, :orderPrice);
+CREATE SERVICE "setweek" TYPE 'JSON' AUTHORIZATION OFF USER "DBA" URL ON METHODS 'GET' AS CALL SetMenu(:chosenItemID, :chosenItem, :chosenItemPrice);
 
 CREATE PROCEDURE "DBA"."ClearMenu"()
 RESULT ("status" int)

@@ -5,9 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/displayweekmenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/displayweekmenu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/setmenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/setmenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/setorder.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/setorder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setorder.html" beforeDir="false" afterPath="$PROJECT_DIR$/setorder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/setmenu.html" beforeDir="false" afterPath="$PROJECT_DIR$/setmenu.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/procservice.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/procservice.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/tables.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +87,11 @@
       <workItem from="1595074660370" duration="1000" />
       <workItem from="1595085570621" duration="7461000" />
       <workItem from="1595230816423" duration="5510000" />
-      <workItem from="1595248906897" duration="14016000" />
+      <workItem from="1595248906897" duration="16722000" />
+      <workItem from="1595412431229" duration="11000" />
+      <workItem from="1595499750133" duration="917000" />
+      <workItem from="1595534039941" duration="2770000" />
+      <workItem from="1595582487510" duration="6707000" />
     </task>
     <servers />
   </component>
