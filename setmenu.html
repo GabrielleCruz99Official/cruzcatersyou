@@ -12,7 +12,7 @@
         <a href="/"><img src="img/logo2.png" width="105" height="75"></a> <!--add logo inside-->
     </nav>
     <hr>
-    <form id='menuForm' onsubmit="saveMenu();">
+    <form id='menuForm' onsubmit="confirmation(); return false;">
         <legend>Appetizers</legend>
         <fieldset id="appetizer">
 
@@ -25,7 +25,14 @@
         <fieldset id="dessert">
 
         </fieldset>
-        <input type='submit' value="Set This Week's Menu">
+        <input type='submit' class="menuSubmit" value="Set This Week's Menu">
     </form>
+    <div class="popup">
+        <div>
+            <span class="close"></span>
+            <ul class="chosenMenu"></ul>
+            <button onclick="saveMenu();">Confirm</button>
+        </div>
+    </div>
 </body>
 </html>
