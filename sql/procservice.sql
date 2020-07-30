@@ -40,3 +40,10 @@ BEGIN
 END;
 
 CREATE SERVICE 'clearmenu' TYPE JSON AUTHORIZATION OFF USER "DBA" URL ON METHODS 'GET' AS CALL ClearMenu();
+
+CREATE PROCEDURE "DBA"."WeekChosen"()
+RESULT (weekItemID varchar(5), weekItem text, weekItemPrice integer)
+BEGIN
+    select *
+    from caterWeekMenu
+END

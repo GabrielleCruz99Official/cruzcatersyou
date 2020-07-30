@@ -1,5 +1,5 @@
 'use strict'
-
+/*
 let sampleMenu = [
     {id: 'APP01', name: 'Salad', price: 5},
     {id: 'ENT01', name: 'Carbonara', price: 12},
@@ -17,7 +17,8 @@ function loadSampleMenu(){
     sampleText += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
     $('#ordermenu').innerHTML = sampleText;
 }
-/*
+*/
+
 let chosenMenu = [];
 let pickedMenu = new XMLHttpRequest(); //get data using HTTPRequest
 pickedMenu.open("get", "/weekchosen", true);
@@ -29,15 +30,15 @@ pickedMenu.send();
 function loadMenu(){
     let chosenTable = '';
     chosenMenu.map(function(x, index){
-        chosenTable += "<tr><td>" + x.menuItem + "</td><td class='price'>"
-            + x.menuItemPrice + "€</td>"
-            +"<td><input type='number' class='quantity' value='0' onchange='subtotal(this.value," + x.menuItemPrice + "," + index +")'</td>"
+        chosenTable += "<tr><td>" + x.weekItem + "</td><td class='price'>"
+            + x.weekItemPrice + "€</td>"
+            +"<td><input type='number' class='quantity' value='0' onchange='subtotal(this.value," + x.weekItemPrice + "," + index +")'</td>"
             +"<td class='subtotal'>0</td></tr>"
     });
     chosenTable += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
     $('#ordermenu').innerHTML = chosenTable;
 }
-*/
+
 let SUBTOTAL = $all('.subtotal');
 
 function updateQuery(){
@@ -50,20 +51,30 @@ function subtotal(quantity, price, index){
     updateTotal();
 }
 
+let orderTotal = 0;
 function updateTotal(){
     let total = 0;
     for(let i=0;i<SUBTOTAL.length;i++){
         total += parseFloat(SUBTOTAL[i].innerHTML);
     }
+    orderTotal = total;
     $('.total').innerHTML = total.toFixed(2);
 }
 
 function load(){
-     loadSampleMenu();
-     //loadMenu();
+     //loadSampleMenu();
+     loadMenu();
 }
 
+let FULL_RECEIPT = [];
+let SIMPLE_RECEIPT = [];
+
+
 function addOrder(form){
-    alert("Order has been confirmed!");
-    window.location.replace("/");
+    SIMPLE_RECEIPT.push({
+       clientName: form.client.value,
+       clientAddress: form.address.value,
+       orderTotalPrice: orderTotal
+    });
+    console.log(SIMPLE_RECEIPT);
 }

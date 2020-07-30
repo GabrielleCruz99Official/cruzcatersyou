@@ -14,16 +14,6 @@ CREATE TABLE caterWeekMenu (
   	CONSTRAINT fkID FOREIGN KEY(weekItemID) REFERENCES caterItems(itemID)
   );
 
-CREATE TABLE caterOrders (
-	orderName varchar(16) NOT NULL,
-	orderID varchar(5) NOT NULL,
-	orderItem text NOT NULL,
-	orderItemQty int NOT NULL,
-	orderItemQtyPrice int NOT NULL,
-	CONSTRAINT pkName PRIMARY KEY(orderName),
-	CONSTRAINT fkID FOREIGN KEY(orderID) REFERENCES caterItems
-);
-
 INSERT INTO caterItems(itemID, itemName, itemCourse, itemPrice) values
 ('APP01', 'Spring Rolls(10 pcs)', 'Appetizer', '12'),
 ('APP02', 'Chicken Pasta Salad', 'Appetizer', '8'),
@@ -34,5 +24,23 @@ INSERT INTO caterItems(itemID, itemName, itemCourse, itemPrice) values
 ('DES01', 'Mini Cheesecake', 'Dessert', '6'),
 ('DES02', 'Leche Flan', 'Dessert', '8'),
 ('DES03', 'Apple Crumble', 'Dessert', '6');
+
+CREATE TABLE caterOrderTotal(
+    clientName varchar(50) NOT NULL,
+    clientAddress text NOT NULL,
+    orderTotalPrice float NOT NULL,
+    CONSTRAINT pkClient PRIMARY KEY(clientName)
+);
+
+CREATE TABLE caterOrderSpecific(
+    clientName2 varchar(50) NOT NULL,
+    orderItemID varchar(5) NOT NULL,
+    orderItem text NOT NULL,
+    orderItemPrice int NOT NULL,
+    orderItemQty int NOT NULL,
+    CONSTRAINT pkClient PRIMARY KEY(clientName2),
+    CONSTRAINT fkName FOREIGN KEY(clientName2) REFERENCES caterOrderTotal(clientName),
+    CONSTRAINT fkItem FOREIGN KEY(orderItemID) REFERENCES caterItems(itemID)
+);
 
 

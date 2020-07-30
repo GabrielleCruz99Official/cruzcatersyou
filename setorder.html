@@ -12,7 +12,7 @@
     </nav>
     <!--order form that calls the week's menu -->
     <label class="labels" for="orderform">New Order</label>
-    <form id="orderform" onSubmit="addOrder(this);">
+    <form id="orderform" onSubmit="addOrder(this); return false;">
         <fieldset>
             <label for="client">Name:</label>
             <input type="text" size="32" name="client" id="client" placeholder="Client Name">
