@@ -62,10 +62,10 @@ BEGIN
     RETURN @clients;
 END
 
-CREATE FUNCTION "DBA"."existentReceiptFull"()
-RETURNS INTEGER
+ALTER FUNCTION "DBA"."existentClient"(in in_clientName varchar(50))
+returns integer
 BEGIN
-    DECLARE @clients integer;
-    SET @clients = (SELECT count(clientName2) from caterOrderFull);
-    RETURN @clients;
+    declare @client int;
+    set @client = (select count(clientName) from caterOrderSimple where clientName = in_clientName);
+    return @client;
 END

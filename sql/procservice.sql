@@ -72,13 +72,14 @@ CREATE PROCEDURE "DBA"."ClearReceipts"()
 RESULT ("status" int)
 BEGIN
     DECLARE @status int;
-    DELETE FROM caterOrderFull;
-    IF(existentReceiptFull() > 0)
-    THEN SET @status =
-
-
+    DELETE FROM caterOrderSimple;
+    IF(existentReceipt() > 0)
+    THEN SET @status = 409;
+    ELSE BEGIN
+        SET @status = 200;
+        END;
+    ENDIF;
+    SELECT @status;
 END
 
-
-
-CREATE
+CREATE SERVICE "clearorders" TYPE 'JSON' AUTHORIZATION OFF USER "DBA" METHODS 'GET' AS CALL ClearReceipts();
