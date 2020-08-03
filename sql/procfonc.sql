@@ -38,4 +38,34 @@ BEGIN
 	select xp_read_file(dba.getPath() || 'IMG/' || url);
 END
 
+ALTER FUNCTION "DBA"."existentItem"(IN in_itemID varchar(5))
+RETURNS INTEGER
+BEGIN
+   DECLARE @idcount integer;
+   SET @idcount = (SELECT count(itemID) from caterItems where itemID = in_itemID);
+   Return @idcount;
+END
 
+ALTER FUNCTION "DBA"."existentMenu"()
+RETURNS INTEGER
+BEGIN
+   DECLARE @menucount integer;
+   SET @menucount = (SELECT count(weekItem) from caterWeekMenu);
+   Return @menucount;
+END
+
+CREATE FUNCTION "DBA"."existentReceipt"()
+RETURNS INTEGER
+BEGIN
+    DECLARE @clients integer;
+    SET @clients = (SELECT count(clientName) from caterOrderSimple);
+    RETURN @clients;
+END
+
+CREATE FUNCTION "DBA"."existentReceiptFull"()
+RETURNS INTEGER
+BEGIN
+    DECLARE @clients integer;
+    SET @clients = (SELECT count(clientName2) from caterOrderFull);
+    RETURN @clients;
+END

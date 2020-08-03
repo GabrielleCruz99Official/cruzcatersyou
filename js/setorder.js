@@ -29,10 +29,10 @@ pickedMenu.send();
 
 function loadMenu(){
     let chosenTable = '';
-    chosenMenu.map(function(x, index){
-        chosenTable += "<tr><td>" + x.weekItem + "</td><td class='price'>"
-            + x.weekItemPrice + "€</td>"
-            +"<td><input type='number' class='quantity' value='0' onchange='subtotal(this.value," + x.weekItemPrice + "," + index +")'</td>"
+    chosenMenu.map(function(menu, index){
+        chosenTable += "<tr><td>" + menu.weekItem + "</td><td class='price'>"
+            + menu.weekItemPrice + "€</td>"
+            +"<td><input type='number' class='quantity' value='0' onchange='subtotal(this.value," + menu.weekItemPrice + "," + index +")'</td>"
             +"<td class='subtotal'>0</td></tr>"
     });
     chosenTable += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
@@ -71,10 +71,32 @@ let SIMPLE_RECEIPT = [];
 
 
 function addOrder(form){
+    /* save on simple receipt table */
     SIMPLE_RECEIPT.push({
        clientName: form.client.value,
        clientAddress: form.address.value,
        orderTotalPrice: orderTotal
     });
+    /*
+    let simpleURL = '';
+
+
+
+    let fullURL = '';
+    let orderSimple = new XMLHttpRequest();
+    orderSimple.open("get", simpleURL, false);
+    orderSimple.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+
+        }
+    }
+    orderSimple.send();
+     */
     console.log(SIMPLE_RECEIPT);
 }
+
+function simpleURLConstruct(){
+    let simpleConstruct;
+}
+
+function fullURLConstruct(){}

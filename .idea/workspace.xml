@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="20da06f6-675a-4cf9-ae94-dc802e89fc86" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/displayweekmenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/displayweekmenu.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/setorder.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/setorder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setorder.html" beforeDir="false" afterPath="$PROJECT_DIR$/setorder.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sql/procfonc.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/procfonc.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/procservice.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/procservice.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sql/tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sql/tables.sql" afterDir="false" />
     </list>
@@ -93,7 +92,7 @@
       <workItem from="1595534039941" duration="2770000" />
       <workItem from="1595582487510" duration="8636000" />
       <workItem from="1595849329972" duration="530000" />
-      <workItem from="1595852343828" duration="21250000" />
+      <workItem from="1595852343828" duration="28234000" />
     </task>
     <servers />
   </component>
