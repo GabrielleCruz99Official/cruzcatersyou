@@ -23,7 +23,7 @@ displayOrders.onreadystatechange = function(){
             orderTable += '<tr>';
             orderTable += '<td>' + order.clientName + '</td>';
             orderTable += '<td>' + order.clientAddress + '</td>';
-            orderTable += '<td>' + order.orderTotalPrice + '</td>';
+            orderTable += '<td>' + order.orderTotalPrice.toFixed(2) + '€</td>';
             orderTable += '</tr>';
         });
         $('#orderList').innerHTML = orderTable;

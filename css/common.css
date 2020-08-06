@@ -45,3 +45,33 @@ nav{
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
+
+#logo{
+    display: grid;
+    place-items: center;
+}
+
+label{
+    font-family: Gigi;
+    font-size: 32pt;
+    border-style: double;
+    border-color: #e4685d;
+    border-width: medium;
+}
+
+fieldset{
+    display: grid;
+    background-color: #fefefe;
+}
+
+thead{
+    font-family: Beleren;
+    color: darkorange;
+}
+
+td{
+    font-family: "A.C.M.E. Secret Agent";
+    font-size: 10pt;
+    text-align: center;
+    min-width: 100px;
+}
