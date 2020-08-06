@@ -1,6 +1,28 @@
 "use strict"
 /* clear previous menu and load item cache */
 
+let clearMenu = new XMLHttpRequest();
+clearMenu.open("get", "/clearmenu", true);
+clearMenu.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+        if(JSON.parse(this.responseText)[0].status == 200){
+            console.log("Menu cleared!");
+        }
+    }
+};
+clearMenu.send();
+
+let clearOrders = new XMLHttpRequest();
+clearOrders.open("get", "/clearorders", true);
+clearOrders.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+        if(JSON.parse(this.responseText)[0].status == 200){
+            console.log("Orders cleared!");
+        }
+    }
+}
+clearOrders.send();
+
 let menu = [];
 let menuList = new XMLHttpRequest();
 menuList.open("get", "/weekmenu", true);
@@ -9,15 +31,6 @@ menuList.onload = function(){
 };
 menuList.send();
 
-let clear = new XMLHttpRequest();
-clear.open("get", "/clearmenu", true);
-clear.onload = function(){
-    console.log(JSON.parse(this.responseText));
-    if(JSON.parse(clear.responseText)[0].status == 200){
-        console.log("Menu cleared!");
-    }
-};
-clear.send();
 
 /* variables */
 let pickedMenu = []; //table containing the chosen items

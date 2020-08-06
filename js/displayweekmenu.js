@@ -11,9 +11,24 @@ displayMenu.onload = function(){
 };
 displayMenu.send();
 
-/*
+
 let displayOrders = new XMLHttpRequest();
-displayOrders.open();
-displayOrders.onload = function(){};
+displayOrders.open("get", "/getorders", true);
+displayOrders.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+        let orderList = JSON.parse(this.responseText);
+        console.log(orderList);
+        let orderTable = '';
+        orderList.map(function(order){
+            orderTable += '<tr>';
+            orderTable += '<td>' + order.clientName + '</td>';
+            orderTable += '<td>' + order.clientAddress + '</td>';
+            orderTable += '<td>' + order.orderTotalPrice + '</td>';
+            orderTable += '</tr>';
+        });
+        $('#orderList').innerHTML = orderTable;
+
+
+    }
+};
 displayOrders.send();
-*/
