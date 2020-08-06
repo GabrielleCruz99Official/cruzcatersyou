@@ -62,8 +62,14 @@ function loadMenuList() {
 function confirmation() {
     stockMenu();
     $('.popup').style.display = "block";
+    let closeButton = $('.close');
+    closeButton.onclick = function() {
+        $('.popup').style.display = "none";
+    }
     return false;
 }
+
+
 
 function stockMenu(){
     let submitList = $('.chosenMenu');

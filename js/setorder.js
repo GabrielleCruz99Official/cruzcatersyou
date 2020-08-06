@@ -32,7 +32,7 @@ function loadMenu(){
     chosenMenu.map(function(menu, index){
         chosenTable += "<tr><td>" + menu.weekItem + "</td><td class='price'>"
             + menu.weekItemPrice + "€</td>"
-            +"<td><input type='number' class='quantity' value='0' onchange='subtotal(this.value," + menu.weekItemPrice + "," + index +")'</td>"
+            +"<td><input type='number' class='quantity' min='0' value='0' onchange='subtotal(this.value," + menu.weekItemPrice + "," + index +")'</td>"
             +"<td class='subtotal'>0</td></tr>"
     });
     chosenTable += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
@@ -40,9 +40,11 @@ function loadMenu(){
 }
 
 let SUBTOTAL = $all('.subtotal');
+let QUANTITY = $all('.quantity');
 
 function updateQuery(){
     SUBTOTAL = $all('.subtotal');
+    QUANTITY = $all('.quantity');
 }
 
 function subtotal(quantity, price, index){
@@ -67,36 +69,78 @@ function load(){
 }
 
 let FULL_RECEIPT = [];
-let SIMPLE_RECEIPT = [];
+let SIMPLE_RECEIPT = {};
 
 
-function addOrder(form){
-    /* save on simple receipt table */
-    SIMPLE_RECEIPT.push({
-       clientName: form.client.value,
-       clientAddress: form.address.value,
-       orderTotalPrice: orderTotal
-    });
-    /*
-    let simpleURL = '';
+function addOrder(form) {
+    SIMPLE_RECEIPT['clientName'] = form.client.value;
+    SIMPLE_RECEIPT['clientAddress'] = form.address.value;
+    SIMPLE_RECEIPT['orderTotalPrice'] = orderTotal;
+    console.log(SIMPLE_RECEIPT);
 
-
-
-    let fullURL = '';
-    let orderSimple = new XMLHttpRequest();
-    orderSimple.open("get", simpleURL, false);
-    orderSimple.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-
+    for (let index in QUANTITY) {
+        if (QUANTITY[index].value > 0) {
+            FULL_RECEIPT.push({
+                clientName: form.client.value,
+                orderItemID: chosenMenu[index].weekItemID,
+                orderItemQty: QUANTITY[index].value
+            });
         }
     }
-    orderSimple.send();
-     */
-    console.log(SIMPLE_RECEIPT);
+    console.log(FULL_RECEIPT);
+    $('.popup').style.display = 'block';
+}
+
+function saveOrder(){
+    let confirmOrder = confirm('Finalize order?');
+    if(confirmOrder){
+        let simpleURL = simpleURLConstruct();
+        let orderSimple = new XMLHttpRequest();
+        orderSimple.open("get", simpleURL, false);
+        orderSimple.onreadystatechange = function (){
+            console.log(this.readyState + " " + this.status);
+            if (this.readyState == 4 && this.status == 200) {
+                if (JSON.parse(this.responseText)[0] == 200) {
+                    console.log('Client added!');
+                }
+            }
+        }
+        orderSimple.send();
+
+        for (let item in FULL_RECEIPT){
+            let fullURL = fullURLConstruct(item);
+            let orderFull = new XMLHttpRequest();
+            orderFull.open("get", fullURL, false);
+            orderFull.onreadystatechange = function(){
+                console.log(this.readyState + " " + this.status);
+                if(this.readyState == 4 && this.status == 200){
+                    if(JSON.parse(this.responseText)[0] == 200){
+                        console.log('Item added!');
+                    }
+                }
+            }
+            orderFull.send();
+        }
+        alert('Order confirmed and saved!');
+        window.location.replace('/');
+    }else{
+        $('popup').style.display = 'none';
+    }
 }
 
 function simpleURLConstruct(){
-    let simpleConstruct;
+    let simpleConstruct = '/simplereceipt?';
+    simpleConstruct += 'orderClient=' + SIMPLE_RECEIPT.clientName
+        + '&orderAddress=' + SIMPLE_RECEIPT.clientAddress
+        + '&orderTotal=' + SIMPLE_RECEIPT.orderTotalPrice;
+    return simpleConstruct;
 }
 
-function fullURLConstruct(){}
+function fullURLConstruct(item){
+    let fullConstruct = '/fullreceipt?';
+    fullConstruct += 'orderClient=' + FULL_RECEIPT[item].clientName
+        + '&orderItemTag=' + FULL_RECEIPT[item].orderItemID
+        + '&orderItemQuan=' + FULL_RECEIPT[item].orderItemQty;
+    return fullConstruct;
+}
+

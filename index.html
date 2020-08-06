@@ -27,7 +27,17 @@
     <div>
         <fieldset>
             <label for="orders">This Week's Orders</label>
-            <table id="orders"></table>
+            <table id="orders">
+                <thead>
+                    <tr>
+                        <th>Client</th>
+                        <th>Address</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="orderList">
+                </tbody>
+            </table>
         </fieldset>
         <a href="/setorder" class="button">Add Order</a>
     </div>

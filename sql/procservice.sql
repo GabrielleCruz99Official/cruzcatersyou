@@ -57,16 +57,49 @@ BEGIN
     DECLARE @status int;
     INSERT INTO caterOrderSimple(clientName, clientAddress, orderTotalPrice) VALUES
     (clientName, clientAddress, orderTotalPrice);
-    SET @status = 200;
+    IF(existentReceipt() > 0)
+    THEN SET @status = 409;
+    ELSE BEGIN
+        SET @status = 200;
+        END
+    ENDIF;
     SELECT @status;
 END
 
 CREATE SERVICE "simplereceipt" TYPE 'JSON' AUTHORIZATION OFF USER "DBA" METHODS 'GET' AS CALL SimpleReceipt(:clientName, :clientAddress, :orderTotalPrice);
 
 CREATE PROCEDURE "DBA"."FullReceipt"(in clientName varchar(50), in orderItemID varchar(5), in orderItemQty integer)
-RESULT
+RESULT ("status" int)
 BEGIN
+    DECLARE @status int;
+    IF(existentClient(clientName) > 0)
+        THEN BEGIN
+            if(existentItem(orderItemID) > 0)
+                THEN BEGIN
+                    DECLARE @id varchar(5);
+                    DECLARE @name text;
+                    DECLARE @price int;
+                    SET @id = (SELECT itemID from caterItems where itemID = orderItemID);
+                    SET @name = (SELECT itemName from caterItems where itemID = orderItemID);
+                    SET @price = (SELECT itemPrice from caterItems where itemID = orderItemID);
+                    INSERT INTO caterOrderFull(clientName2, orderItemID, orderItem, orderItemPrice, orderItemQty) values
+                    (clientName, @id, @name, @price, orderItemQty);
+                    SET @status = 200;
+                    END
+            ELSE BEGIN
+                SET @status = 404;
+            END
+            ENDIF
+        END
+    ELSE BEGIN
+        SET @status = 404;
+    END
+    ENDIF;
+    SELECT @status;
 END
+
+
+CREATE SERVICE "fullreceipt" TYPE 'JSON' AUTHORIZATION OFF USER "DBA" METHODS 'GET' AS CALL FullReceipt(:clientName, :orderItemID, :orderItemQty);
 
 CREATE PROCEDURE "DBA"."ClearReceipts"()
 RESULT ("status" int)
@@ -83,3 +116,11 @@ BEGIN
 END
 
 CREATE SERVICE "clearorders" TYPE 'JSON' AUTHORIZATION OFF USER "DBA" METHODS 'GET' AS CALL ClearReceipts();
+
+CREATE PROCEDURE "DBA"."GetOrders"()
+RESULT (clientName varchar(50), clientAddress text, orderTotalPrice integer)
+BEGIN
+    SELECT * FROM caterOrderSimple;
+END
+
+CREATE SERVICE "getorders" TYPE 'JSON' AUTHORIZATION OFF USER "DBA" METHODS 'GET' AS CALL GetOrders();
