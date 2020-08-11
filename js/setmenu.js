@@ -113,7 +113,7 @@ function saveMenu(){
             save.open("get", url, false);
             save.onreadystatechange = function(){
                 console.log(this.readyState + " " + this.status);
-                if(this.readyState == 4 & this.status == 200){
+                if(this.readyState == 4 && this.status == 200){
                     if(JSON.parse(this.responseText)[0] == 200){
                         console.log('Item added to this week\'s menu!');
                     }

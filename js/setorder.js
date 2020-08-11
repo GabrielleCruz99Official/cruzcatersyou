@@ -93,39 +93,47 @@ function addOrder(form) {
 
 function saveOrder(){
     let confirmOrder = confirm('Finalize order?');
-    if(confirmOrder){
-        let simpleURL = simpleURLConstruct();
-        let orderSimple = new XMLHttpRequest();
-        orderSimple.open("get", simpleURL, false);
-        orderSimple.onreadystatechange = function (){
-            console.log(this.readyState + " " + this.status);
-            if (this.readyState == 4 && this.status == 200) {
-                if (JSON.parse(this.responseText)[0] == 200) {
-                    console.log('Client added!');
-                }
-            }
-        }
-        orderSimple.send();
-
-        for (let item in FULL_RECEIPT){
-            let fullURL = fullURLConstruct(item);
-            let orderFull = new XMLHttpRequest();
-            orderFull.open("get", fullURL, false);
-            orderFull.onreadystatechange = function(){
-                console.log(this.readyState + " " + this.status);
-                if(this.readyState == 4 && this.status == 200){
-                    if(JSON.parse(this.responseText)[0] == 200){
-                        console.log('Item added!');
-                    }
-                }
-            }
-            orderFull.send();
-        }
+    if(confirmOrder) {
+        saveSimpleReceipt();
+        saveFullReceipt();
         alert('Order confirmed and saved!');
         window.location.replace('/');
     }else{
         $('popup').style.display = 'none';
     }
+}
+
+function saveSimpleReceipt(){
+    let simpleURL = simpleURLConstruct();
+    let orderSimple = new XMLHttpRequest();
+    orderSimple.open("get", simpleURL, false);
+    orderSimple.onreadystatechange = function (){
+        console.log(this.readyState + " " + this.status);
+        if (this.readyState == 4 && this.status == 200) {
+            if (JSON.parse(this.responseText)[0].status == 200) {
+                console.log('Client added!');
+            }
+        }
+    }
+    orderSimple.send();
+}
+
+function saveFullReceipt(){
+    FULL_RECEIPT.map(function(item){
+        let fullURL = fullURLConstruct(item);
+        let orderFull = new XMLHttpRequest();
+        orderFull.open("get", fullURL, false);
+        orderFull.onreadystatechange = function(){
+            console.log(this.readyState + " " + this.status);
+            if(this.readyState == 4 && this.status == 200){
+                console.log(JSON.parse(this.responseText)[0]);
+                if(JSON.parse(this.responseText)[0].status == 200){
+                    console.log('Item added!');
+                }
+            }
+        }
+        orderFull.send();
+    });
 }
 
 function simpleURLConstruct(){
@@ -138,9 +146,10 @@ function simpleURLConstruct(){
 
 function fullURLConstruct(item){
     let fullConstruct = '/fullreceipt?';
-    fullConstruct += 'orderClient=' + FULL_RECEIPT[item].clientName
-        + '&orderItemTag=' + FULL_RECEIPT[item].orderItemID
-        + '&orderItemQuan=' + FULL_RECEIPT[item].orderItemQty;
+    fullConstruct += 'orderClient=' + item.clientName
+        + '&orderItemTag=' + item.orderItemID
+        + '&orderItemQuan=' + item.orderItemQty;
+    console.log(fullConstruct)
     return fullConstruct;
 }
 
