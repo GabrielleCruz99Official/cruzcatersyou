@@ -1,24 +1,4 @@
 'use strict'
-/*
-let sampleMenu = [
-    {id: 'APP01', name: 'Salad', price: 5},
-    {id: 'ENT01', name: 'Carbonara', price: 12},
-    {id: 'DES01', name: 'Cake', price: 8}
-];
-
-function loadSampleMenu(){
-    let sampleText = '';
-    sampleMenu.map(function(x, index){
-        sampleText += "<tr><td>" + x.name + "</td><td class='price'>"
-            + x.price + "€</td>"
-            +"<td><input type='number' class='quantity' value='0' onchange='subtotal(this.value," + x.price + "," + index +")'</td>"
-            +"<td class='subtotal'>0</td></tr>"
-    });
-    sampleText += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
-    $('#ordermenu').innerHTML = sampleText;
-}
-*/
-
 let chosenMenu = [];
 let pickedMenu = new XMLHttpRequest(); //get data using HTTPRequest
 pickedMenu.open("get", "/weekchosen", true);
@@ -36,15 +16,15 @@ function loadMenu(){
             +"<td class='subtotal'>0</td></tr>"
     });
     chosenTable += "<tr><td></td><td></td><td id='totalRight'>Total:</td><td class='total'></td></tr>"
-    $('#ordermenu').innerHTML = chosenTable;
+    select('#ordermenu').innerHTML = chosenTable;
 }
 
-let SUBTOTAL = $all('.subtotal');
-let QUANTITY = $all('.quantity');
+let SUBTOTAL = select_all('.subtotal');
+let QUANTITY = select_all('.quantity');
 
 function updateQuery(){
-    SUBTOTAL = $all('.subtotal');
-    QUANTITY = $all('.quantity');
+    SUBTOTAL = select_all('.subtotal');
+    QUANTITY = select_all('.quantity');
 }
 
 function subtotal(quantity, price, index){
@@ -60,7 +40,7 @@ function updateTotal(){
         total += parseFloat(SUBTOTAL[i].innerHTML);
     }
     orderTotal = total;
-    $('.total').innerHTML = total.toFixed(2);
+    select('.total').innerHTML = total.toFixed(2);
 }
 
 function load(){
@@ -88,63 +68,46 @@ function addOrder(form) {
         }
     }
     console.log(FULL_RECEIPT);
-    $('.popup').style.display = 'block';
+    select('.popup').style.display = 'block';
 }
 
 function saveOrder(){
     let confirmOrder = confirm('Finalize order?');
     if(confirmOrder){
-        let simpleURL = simpleURLConstruct();
-        let orderSimple = new XMLHttpRequest();
-        orderSimple.open("get", simpleURL, false);
-        orderSimple.onreadystatechange = function (){
-            console.log(this.readyState + " " + this.status);
-            if (this.readyState == 4 && this.status == 200) {
-                if (JSON.parse(this.responseText)[0].status == 200) {
-                    console.log('Client added!');
-                }
-            }
-        }
-        orderSimple.send();
-
-        FULL_RECEIPT.map(function(item){
-            let fullURL = fullURLConstruct(item);
-            let orderFull = new XMLHttpRequest();
-            orderFull.open("get", fullURL, false);
-            orderFull.onreadystatechange = function(){
-                console.log(this.readyState + " " + this.status);
-                if(this.readyState == 4 && this.status == 200){
-                    console.log(JSON.parse(this.responseText)[0]);
-                    if(JSON.parse(this.responseText)[0].status == 200){
-                        console.log('Item added!');
-                    }
-                }
-            }
-            orderFull.send();
-        });
-
-        alert('Order confirmed and saved!');
+        saveSimpleReceipt();
+        saveFullReceipt();
         window.location.replace('/');
-
     }else{
-        $('popup').style.display = 'none';
+        select('popup').style.display = 'none';
     }
 }
 
-function simpleURLConstruct(){
-    let simpleConstruct = '/simplereceipt?';
-    simpleConstruct += 'orderClient=' + SIMPLE_RECEIPT.clientName
-        + '&orderAddress=' + SIMPLE_RECEIPT.clientAddress
-        + '&orderTotal=' + SIMPLE_RECEIPT.orderTotalPrice;
-    return simpleConstruct;
+function saveSimpleReceipt(){
+    $.ajax({
+        url: "/simplereceipt",
+        method: 'get',
+        data:{orderClient: SIMPLE_RECEIPT.clientName, orderAddress: SIMPLE_RECEIPT.clientAddress, orderTotal: SIMPLE_RECEIPT.orderTotalPrice},
+        success: function(){
+            console.log('Client added!');
+        }
+    });
 }
 
-function fullURLConstruct(item){
-    let fullConstruct = '/fullreceipt?';
-    fullConstruct += 'orderClient=' + item.clientName
-        + '&orderItemTag=' + item.orderItemID
-        + '&orderItemQuan=' + item.orderItemQty;
-    console.log(fullConstruct)
-    return fullConstruct;
+function saveFullReceipt(){
+    let async_full_receipt = [];
+    let response_full_receipt = [];
+    for(let item of FULL_RECEIPT){
+        async_full_receipt.push($.ajax({
+            url: '/fullreceipt',
+            method: 'get',
+            data:{orderClient: item.clientName, orderItemTag: item.orderItemID, orderItemQuan: item.orderItemQty},
+            success: function(data){
+                console.log('Order item added to receipt!');
+                response_full_receipt.push(data);
+            }
+        }));
+        $.when.apply(null, async_full_receipt).done(function(){
+            alert('Order confirmed and saved!');
+        });
+    }
 }
-

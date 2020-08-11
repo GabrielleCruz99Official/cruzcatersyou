@@ -34,7 +34,7 @@ menuList.send();
 
 /* variables */
 let pickedMenu = []; //table containing the chosen items
-let btnSubmit = $('.menuSubmit'); //for modal popup
+let btnSubmit = select('.menuSubmit'); //for modal popup
 
 /* functions */
 
@@ -65,29 +65,26 @@ function loadMenuList() {
         }else{
             console.log('Error!');
         }
-
     }
-    $('#appetizer').innerHTML = APP;
-    $('#main').innerHTML = MAIN;
-    $('#dessert').innerHTML = DESSERT;
+    select('#appetizer').innerHTML = APP;
+    select('#main').innerHTML = MAIN;
+    select('#dessert').innerHTML = DESSERT;
 }
 
 function confirmation() {
     stockMenu();
-    $('.popup').style.display = "block";
-    let closeButton = $('.close');
+    select('.popup').style.display = "block";
+    let closeButton = select('.close');
     closeButton.onclick = function() {
-        $('.popup').style.display = "none";
+        select('.popup').style.display = "none";
     }
     return false;
 }
 
-
-
 function stockMenu(){
-    let submitList = $('.chosenMenu');
+    let submitList = select('.chosenMenu');
     let displayList = '';
-    let chosenList = $all('input[type=checkbox]:checked');
+    let chosenList = select_all('input[type=checkbox]:checked');
     for (let chosen of chosenList) {
         for (let id in menu) {
             if (chosen.value == menu[id].itemName) {
@@ -107,28 +104,26 @@ function stockMenu(){
 function saveMenu(){
     let confirmMenu = confirm("Is the menu finalized?");
     if(confirmMenu){
+        let async_test = [];
+        let ajax_response = [];
         for(let item of pickedMenu){
-            let url = setURL(item.chosenItemID);
-            let save = new XMLHttpRequest();
-            save.open("get", url, false);
-            save.onreadystatechange = function(){
-                console.log(this.readyState + " " + this.status);
-                if(this.readyState == 4 && this.status == 200){
-                    if(JSON.parse(this.responseText)[0] == 200){
-                        console.log('Item added to this week\'s menu!');
-                    }
+            async_test.push($.ajax({
+                url: '/setweek',
+                method: 'get',
+                data:{chosenItemID: item.chosenItemID},
+                success: function(data){
+                    console.log('Item added to this week\'s menu!');
+                    ajax_response.push(data);
                 }
-            }
-            save.send();
+            }));
         }
-        alert('Menu is set for this week!');
-        window.location.replace("/");
-    }else{
+
+        $.when.apply(null, async_test).done(function(){
+            alert('Menu is set for this week!');
+            window.location.replace("/");
+        });
+
+    } else {
         $('.popup').style.display = "none";
     }
-}
-
-function setURL(value){
-    let urlBase = '/setweek?chosenItemID=' + value;
-    return urlBase;
 }

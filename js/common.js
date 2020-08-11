@@ -1,9 +1,9 @@
 "use strict"
 
-function $(query){
+function select(query){
     return document.querySelector(query);
 }
 
-function $all(query){
+function select_all(query){
     return document.querySelectorAll(query);
 }

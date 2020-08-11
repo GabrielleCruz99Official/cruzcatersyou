@@ -7,7 +7,7 @@ displayMenu.onload = function(){
     for(let item of JSON.parse(this.responseText)) {
         menuList += "<tr><td>" + item.weekItem + "</td></tr>";
     }
-    $('#menu').innerHTML = menuList;
+    select('#menu').innerHTML = menuList;
 };
 displayMenu.send();
 
@@ -26,7 +26,7 @@ displayOrders.onreadystatechange = function(){
             orderTable += '<td>' + order.orderTotalPrice.toFixed(2) + '€</td>';
             orderTable += '</tr>';
         });
-        $('#orderList').innerHTML = orderTable;
+        select('#orderList').innerHTML = orderTable;
 
 
     }
