@@ -74,40 +74,39 @@ function addOrder(form) {
 function saveOrder(){
     let confirmOrder = confirm('Finalize order?');
     if(confirmOrder){
-        saveSimpleReceipt();
-        saveFullReceipt();
-        window.location.replace('/');
+        let all_save = $.ajax({
+            url: "/simplereceipt",
+            method: 'get',
+            data:{orderClient: SIMPLE_RECEIPT.clientName, orderAddress: SIMPLE_RECEIPT.clientAddress, orderTotal: SIMPLE_RECEIPT.orderTotalPrice},
+            success: function(){
+                console.log('Client added!');
+                saveFullReceipt();
+            }
+        });
+        $.when.apply(null, all_save).done(function(){
+            alert('Order registered!');
+            window.location.replace("/");
+        });
     }else{
-        select('popup').style.display = 'none';
+        select('.popup').style.display = 'none';
     }
 }
 
-function saveSimpleReceipt(){
-    $.ajax({
-        url: "/simplereceipt",
-        method: 'get',
-        data:{orderClient: SIMPLE_RECEIPT.clientName, orderAddress: SIMPLE_RECEIPT.clientAddress, orderTotal: SIMPLE_RECEIPT.orderTotalPrice},
-        success: function(){
-            console.log('Client added!');
-        }
-    });
-}
-
 function saveFullReceipt(){
-    let async_full_receipt = [];
-    let response_full_receipt = [];
-    for(let item of FULL_RECEIPT){
-        async_full_receipt.push($.ajax({
-            url: '/fullreceipt',
+    let items = 0;
+    if (items < FULL_RECEIPT.length){
+        let item_save = $.ajax({
+            url: "/fullreceipt",
             method: 'get',
-            data:{orderClient: item.clientName, orderItemTag: item.orderItemID, orderItemQuan: item.orderItemQty},
-            success: function(data){
-                console.log('Order item added to receipt!');
-                response_full_receipt.push(data);
+            data: {orderClient: FULL_RECEIPT[items].clientName, orderItemTag: FULL_RECEIPT[items].orderItemID, orderItemQuan: FULL_RECEIPT[items].orderItemQty},
+            success: function(result){
+                console.log(result);
             }
-        }));
-        $.when.apply(null, async_full_receipt).done(function(){
-            alert('Order confirmed and saved!');
         });
+
+        $.when.apply(null, item_save).done(function(){
+            alert('Order item added to receipt!');
+        });
+        items++;
     }
 }
