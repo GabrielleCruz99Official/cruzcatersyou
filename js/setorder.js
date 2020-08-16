@@ -44,7 +44,6 @@ function updateTotal(){
 }
 
 function load(){
-     //loadSampleMenu();
      loadMenu();
 }
 
@@ -71,42 +70,36 @@ function addOrder(form) {
     select('.popup').style.display = 'block';
 }
 
-function saveOrder(){
+async function saveOrder(){
     let confirmOrder = confirm('Finalize order?');
     if(confirmOrder){
-        let all_save = $.ajax({
+        let simple_save = $.ajax({
             url: "/simplereceipt",
             method: 'get',
             data:{orderClient: SIMPLE_RECEIPT.clientName, orderAddress: SIMPLE_RECEIPT.clientAddress, orderTotal: SIMPLE_RECEIPT.orderTotalPrice},
             success: function(){
                 console.log('Client added!');
-                saveFullReceipt();
             }
         });
-        $.when.apply(null, all_save).done(function(){
+        $.when.apply(null, simple_save).done(function(){
             alert('Order registered!');
-            window.location.replace("/");
         });
+        let receipt_status = 0;
+        for(let item of FULL_RECEIPT){
+            let item_request = await fetch(`/fullreceipt?orderClient=${item.clientName}&orderItemTag=${item.orderItemID}&orderItemQuan=${item.orderItemQty}`);
+            console.log(item_request);
+            let [{status}] = await item_request.json();
+            console.log(status);
+            receipt_status = status;
+        }
+        if(receipt_status != 200) alert('Error!');
+        else window.location.replace('/');
     }else{
         select('.popup').style.display = 'none';
     }
 }
 
-function saveFullReceipt(){
-    let items = 0;
-    if (items < FULL_RECEIPT.length){
-        let item_save = $.ajax({
-            url: "/fullreceipt",
-            method: 'get',
-            data: {orderClient: FULL_RECEIPT[items].clientName, orderItemTag: FULL_RECEIPT[items].orderItemID, orderItemQuan: FULL_RECEIPT[items].orderItemQty},
-            success: function(result){
-                console.log(result);
-            }
-        });
 
-        $.when.apply(null, item_save).done(function(){
-            alert('Order item added to receipt!');
-        });
-        items++;
-    }
-}
+
+
+

@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="css/common.css">
 </head>
 <body>
-    <nav>
-        <a id="logo" href="/"><img src="img/logo2.png" width="105" height="75"></a> <!--add logo inside-->
-    </nav>
+    <header>
+        <nav>
+            <a id="logo" href="/"><img src="img/logo2.png" width="105" height="75"></a>
+        </nav>
+    </header>
     <!-- This Week's Menu -->
     <div>
         <fieldset>
@@ -23,12 +25,13 @@
         </fieldset>
         <a href="/setmenu" class="button">Set This Week's Menu</a>
     </div>
+    <br>
     <!--This Week's Orders -->
     <!-- Name (with link to order?) - Price Total - Check Mark to Confirm Finish -->
     <div>
         <fieldset>
-            <label for="orders">This Week's Orders</label>
-            <table id="orders">
+            <label for="orderList">This Week's Orders</label>
+            <table id="orderList">
                 <thead>
                     <tr>
                         <th>Client</th>
@@ -36,11 +39,16 @@
                         <th>Total</th>
                     </tr>
                 </thead>
-                <tbody id="orderList">
+                <tbody>
                 </tbody>
             </table>
         </fieldset>
         <a href="/setorder" class="button">Add Order</a>
     </div>
+    <hr>
+    <footer>
+        <p><em>Crée par</em> Gabrielle CRUZ</p>
+        <a id="facebook" href="https://www.facebook.com/cruzcatersyou/?view_public_for=109571520763750"><img src="img/toFB.jpg" width="30" height="30"></a>
+    </footer>
 </body>
 </html>

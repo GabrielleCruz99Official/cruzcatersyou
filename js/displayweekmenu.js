@@ -16,15 +16,17 @@ let displayOrders = new XMLHttpRequest();
 displayOrders.open("get", "/getorders", true);
 displayOrders.onreadystatechange = function(){
     if(this.readyState == 4 && this.status == 200){
-        let orderList = JSON.parse(this.responseText);
-        console.log(orderList);
         let orderTable = '';
+        let orderList = JSON.parse(this.responseText);
+        if(orderList.length > 0){
+        orderTable += '<thead><tr><th>Client</th><th>Address</th><th>Total</th></tr></thead>';
+        }
         orderList.map(function(order){
-            orderTable += '<tr>';
+            orderTable += '<tbody><tr>';
             orderTable += '<td>' + order.clientName + '</td>';
             orderTable += '<td>' + order.clientAddress + '</td>';
             orderTable += '<td>' + order.orderTotalPrice.toFixed(2) + '€</td>';
-            orderTable += '</tr>';
+            orderTable += '</tr></tbody>';
         });
         select('#orderList').innerHTML = orderTable;
 
