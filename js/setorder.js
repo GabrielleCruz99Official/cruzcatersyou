@@ -22,11 +22,19 @@ function loadMenu(){
 let SUBTOTAL = select_all('.subtotal');
 let QUANTITY = select_all('.quantity');
 
+/**
+ * Mettre à jour les caches de quantité et sous-total
+ */
 function updateQuery(){
     SUBTOTAL = select_all('.subtotal');
     QUANTITY = select_all('.quantity');
 }
 
+/**
+ * @param quantity - quantité du plat
+ * @param price - prix du plat
+ * @param index - la position du plat dans le tableau
+ */
 function subtotal(quantity, price, index){
     updateQuery();
     SUBTOTAL[index].textContent = (quantity * price).toFixed(2);
@@ -34,6 +42,11 @@ function subtotal(quantity, price, index){
 }
 
 let orderTotal = 0;
+
+/**
+ * Mettre à jour le sous-total à chaque fois qu'on
+ * augmente ou diminue la quantité d'un plat
+ */
 function updateTotal(){
     let total = 0;
     for(let i=0;i<SUBTOTAL.length;i++){
@@ -50,7 +63,10 @@ function load(){
 let FULL_RECEIPT = [];
 let SIMPLE_RECEIPT = {};
 
-
+/**
+ * @param form - le billet complet
+ * Séparer le billet complet en deux sous-billets
+ */
 function addOrder(form) {
     SIMPLE_RECEIPT['clientName'] = form.client.value;
     SIMPLE_RECEIPT['clientAddress'] = form.address.value;
@@ -70,6 +86,12 @@ function addOrder(form) {
     select('.popup').style.display = 'block';
 }
 
+/**
+ * Sauvegarde le billet en deux tableaux: un billet simple avec le nom du client,
+ * leur adrèsse, et le coût total; et un billet compréhensive avec la quantité
+ * de chaque plat et leur sous-totale
+ * @returns {Promise<void>} status
+ */
 async function saveOrder(){
     let confirmOrder = confirm('Finalize order?');
     if(confirmOrder){

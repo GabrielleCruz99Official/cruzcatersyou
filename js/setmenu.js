@@ -71,6 +71,9 @@ function loadMenuList() {
     select('#dessert').innerHTML = DESSERT;
 }
 
+/**
+ * Mettre un pop-up avec les plats choisi pour le menu de la semaine
+ */
 function confirmation() {
     stockMenu();
     select('.popup').style.display = "block";
@@ -81,6 +84,9 @@ function confirmation() {
     return false;
 }
 
+/**
+ * Stocker les plats choisi en array
+ */
 function stockMenu(){
     let submitList = select('.chosenMenu');
     let displayList = '';
@@ -101,6 +107,9 @@ function stockMenu(){
     console.log(pickedMenu);
 }
 
+/**
+ * sauvegarde le menu choisi pour la semaine en base des données
+ */
 function saveMenu(){
     let confirmMenu = confirm("Is the menu finalized?");
     if(confirmMenu){
