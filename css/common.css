@@ -1,54 +1,10 @@
-nav{
-    background-color: gray;
-}
-
-.button {
-    box-shadow:inset 0px 39px 0px -24px #e67a73;
-    background-color:#e4685d;
-    border-radius:4px;
-    border:1px solid #ffffff;
-    display:inline-block;
-    cursor:pointer;
-    color:#ffffff;
-    font-family:Arial;
-    font-size:15px;
-    padding:6px 15px;
-    text-decoration:none;
-    text-shadow:0px 1px 0px #b23e35;
-}
-.button:hover {
-    background-color:#eb675e;
-}
-.button:active {
-    position:relative;
-    top:1px;
-}
-
-
-.popup{
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-.chosenMenu{
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-}
-
 #logo{
     display: grid;
     place-items: center;
+}
+
+nav{
+    background-color: gray;
 }
 
 label{
@@ -57,21 +13,4 @@ label{
     border-style: double;
     border-color: #e4685d;
     border-width: medium;
-}
-
-fieldset{
-    display: grid;
-    background-color: #fefefe;
-}
-
-thead{
-    font-family: Beleren;
-    color: darkorange;
-}
-
-td{
-    font-family: "A.C.M.E. Secret Agent";
-    font-size: 10pt;
-    text-align: center;
-    min-width: 100px;
 }

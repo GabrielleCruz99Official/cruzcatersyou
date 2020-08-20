@@ -108,9 +108,15 @@ async function saveOrder(){
         });
         let receipt_status = 0;
         for(let item of FULL_RECEIPT){
-            let item_request = await fetch(`/fullreceipt?orderClient=${item.clientName}&orderItemTag=${item.orderItemID}&orderItemQuan=${item.orderItemQty}`);
+            let item_request = await fetch(`/fullreceipt?orderClient=${item.clientName}&orderItemTag=${item.orderItemID}&orderItemQuan=${item.orderItemQty}`).catch(saveError=>{
+                console.log(saveError);
+                console.log('There\'s an error trying to save the menu.');
+            });
             console.log(item_request);
-            let [{status}] = await item_request.json();
+            let [{status}] = await item_request.json().catch(statusError =>{
+                console.log(statusError);
+                console.log('Either the status is not good or there was a problem with receiving the data.');
+            });
             console.log(status);
             receipt_status = status;
         }
