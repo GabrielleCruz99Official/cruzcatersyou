@@ -39,6 +39,14 @@ td, th{
     outline: thin solid;
 }
 
+label{
+    font-family: Gigi;
+    font-size: 32pt;
+    border-style: double;
+    border-color: #e4685d;
+    border-width: medium;
+}
+
 table{
     border: 1px solid red;
 }

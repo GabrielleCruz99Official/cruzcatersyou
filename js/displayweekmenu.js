@@ -1,36 +1,41 @@
 "use strict"
 
-let displayMenu = new XMLHttpRequest();
-displayMenu.open("get","/weekchosen",true);
-displayMenu.onload = function(){
+let sampleChosenMenu = [
+    {weekItem: 'Summer Rolls', weekItemPrice: 5},
+    {weekItem: 'Crispy Fried Noodles', weekItemPrice: 12},
+    {weekItem: 'Leche Flan', weekItemPrice: 6}
+];
+
+let sampleWeekOrders = [
+    {clientName: 'Marie Lenglet', clientAddress: 'Rue Haute 52, 1000 Bruxelles', orderTotalPrice: 25},
+    {clientName: 'Alain Rousseau', clientAddress: 'Avenue Louise 345, 1000 Bruxelles', orderTotalPrice: 54}
+];
+
+function loadTables(){
+    loadSampleMenu();
+    loadSampleOrders();
+}
+function loadSampleMenu() {
+
     let menuList = '';
-    for(let item of JSON.parse(this.responseText)) {
+    for(let item of sampleChosenMenu) {
         menuList += "<tr><td>" + item.weekItem + "</td></tr>";
     }
+
     select('#menu').innerHTML = menuList;
-};
-displayMenu.send();
+}
 
-
-let displayOrders = new XMLHttpRequest();
-displayOrders.open("get", "/getorders", true);
-displayOrders.onreadystatechange = function(){
-    if(this.readyState == 4 && this.status == 200){
-        let orderTable = '';
-        let orderList = JSON.parse(this.responseText);
-        if(orderList.length > 0){
+function loadSampleOrders() {
+    let orderTable = '';
+    if (sampleWeekOrders.length > 0) {
         orderTable += '<thead><tr><th>Client</th><th>Address</th><th>Total</th></tr></thead>';
-        }
-        orderList.map(function(order){
-            orderTable += '<tbody><tr>';
-            orderTable += '<td>' + order.clientName + '</td>';
-            orderTable += '<td>' + order.clientAddress + '</td>';
-            orderTable += '<td>' + order.orderTotalPrice.toFixed(2) + '€</td>';
-            orderTable += '</tr></tbody>';
-        });
-        select('#orderList').innerHTML = orderTable;
-
-
     }
-};
-displayOrders.send();
+    sampleWeekOrders.map(function (order) {
+        orderTable += '<tbody><tr>';
+        orderTable += '<td>' + order.clientName + '</td>';
+        orderTable += '<td>' + order.clientAddress + '</td>';
+        orderTable += '<td>' + order.orderTotalPrice.toFixed(2) + '€</td>';
+        orderTable += '</tr></tbody>';
+    });
+    select('#orderList').innerHTML = orderTable;
+}

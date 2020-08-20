@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="20da06f6-675a-4cf9-ae94-dc802e89fc86" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/css/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css/setmenu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/common.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/setorder.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/setorder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setmenu.html" beforeDir="false" afterPath="$PROJECT_DIR$/setmenu.html" afterDir="false" />
-    </list>
+    <list default="true" id="20da06f6-675a-4cf9-ae94-dc802e89fc86" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,19 +12,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="TypeScript File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
       </list>
     </option>
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
   <component name="ProjectId" id="1e0AifBCVqtHCKJSFsYdXBpWDpR" />
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -72,56 +58,13 @@
       <option name="presentableId" value="Default" />
       <updated>1593448264524</updated>
       <workItem from="1593448265703" duration="3362000" />
-      <workItem from="1593505082593" duration="3147000" />
-      <workItem from="1593509271599" duration="7443000" />
-      <workItem from="1593599493757" duration="2972000" />
-      <workItem from="1593630058447" duration="605000" />
-      <workItem from="1593694988474" duration="1692000" />
-      <workItem from="1593701981649" duration="1253000" />
-      <workItem from="1593855519941" duration="4323000" />
-      <workItem from="1594038731081" duration="29901000" />
-      <workItem from="1594587513947" duration="12458000" />
-      <workItem from="1594723652906" duration="11794000" />
-      <workItem from="1594837282244" duration="1211000" />
-      <workItem from="1594924547702" duration="1000" />
-      <workItem from="1594924793276" duration="8498000" />
-      <workItem from="1595074660370" duration="1000" />
-      <workItem from="1595085570621" duration="7461000" />
-      <workItem from="1595230816423" duration="5510000" />
-      <workItem from="1595248906897" duration="16722000" />
-      <workItem from="1595412431229" duration="11000" />
-      <workItem from="1595499750133" duration="917000" />
-      <workItem from="1595534039941" duration="2770000" />
-      <workItem from="1595582487510" duration="8636000" />
-      <workItem from="1595849329972" duration="530000" />
-      <workItem from="1595852343828" duration="44544000" />
-      <workItem from="1596558693181" duration="12035000" />
-      <workItem from="1597046722560" duration="3584000" />
-      <workItem from="1597132169244" duration="12886000" />
-      <workItem from="1597176038627" duration="59000" />
-      <workItem from="1597487098618" duration="222000" />
-      <workItem from="1597487360575" duration="8946000" />
-      <workItem from="1597569900364" duration="599000" />
-      <workItem from="1597682843595" duration="3683000" />
-      <workItem from="1597781646085" duration="2551000" />
-      <workItem from="1597872052369" duration="2656000" />
+      <workItem from="1593505082593" duration="3265000" />
+      <workItem from="1597921391825" duration="343000" />
+      <workItem from="1597921776679" duration="4877000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
 </project>

@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>cruzcatersyou</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/common.css">
     <script src="js/common.js" type="text/javascript"></script>
     <script src="js/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="js/displayweekmenu.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/common.css">
 </head>
-<body>
+<body onload="loadTables();">
     <header>
         <nav>
-            <a id="logo" href="/"><img src="img/logo2.png" width="105" height="75"></a>
+            <a id="logo" href="./index.html"><img src="img/logo2.png" width="105" height="75"></a>
         </nav>
     </header>
     <!-- This Week's Menu -->
@@ -24,7 +24,7 @@
             <!--Link to Facebook post -->
             <p id="url"></p>
         </fieldset>
-        <a href="/setmenu" class="button">Set This Week's Menu</a>
+        <a href="./setmenu.html" class="button">Set This Week's Menu</a>
     </div>
     <br>
     <!--This Week's Orders -->
@@ -44,7 +44,7 @@
                 </tbody>
             </table>
         </fieldset>
-        <a href="/setorder" class="button">Add Order</a>
+        <a href="./setorder.html" class="button">Add Order</a>
     </div>
     <hr>
     <footer>

@@ -1,47 +1,29 @@
 "use strict"
 /* clear previous menu and load item cache */
 
-let clearMenu = new XMLHttpRequest();
-clearMenu.open("get", "/clearmenu", true);
-clearMenu.onreadystatechange = function(){
-    if(this.readyState == 4 && this.status == 200){
-        if(JSON.parse(this.responseText)[0].status == 200){
-            console.log("Menu cleared!");
-        }
-    }
-};
-clearMenu.send();
-
-let clearOrders = new XMLHttpRequest();
-clearOrders.open("get", "/clearorders", true);
-clearOrders.onreadystatechange = function(){
-    if(this.readyState == 4 && this.status == 200){
-        if(JSON.parse(this.responseText)[0].status == 200){
-            console.log("Orders cleared!");
-        }
-    }
-}
-clearOrders.send();
-
-let menu = [];
-let menuList = new XMLHttpRequest();
-menuList.open("get", "/weekmenu", true);
-menuList.onload = function(){
-    menu = JSON.parse(menuList.responseText);
-};
-menuList.send();
-
+/* sample menu */
+let menu = [
+    {itemName: 'Summer Rolls', itemCourse: 'Appetizer', itemPrice: 5},
+    {itemName: 'Spring Rolls', itemCourse: 'Appetizer', itemPrice: 10},
+    {itemName: 'Crispy Fried Noodles', itemCourse: 'Main', itemPrice: 12},
+    {itemName: 'Kare-Kare', itemCourse: 'Main', itemPrice: 10},
+    {itemName: 'Mini Cheesecake', itemCourse: 'Dessert', itemPrice: 6},
+    {itemName: 'Leche Flan', itemCourse: 'Dessert', itemPrice: 6}
+];
 
 /* variables */
 let pickedMenu = []; //table containing the chosen items
 let btnSubmit = select('.menuSubmit'); //for modal popup
 
 /* functions */
-
 function load(){
     loadMenuList();
 }
 
+/**
+ * From the menu (or sample menu, in this case), we will separate the items
+ * based on their menu course
+ */
 function loadMenuList() {
     let APP = '';
     let MAIN = '';
@@ -72,7 +54,7 @@ function loadMenuList() {
 }
 
 /**
- * Mettre un pop-up avec les plats choisi pour le menu de la semaine
+ * Display popup with the chosen items for the week's menu
  */
 function confirmation() {
     stockMenu();
@@ -85,17 +67,16 @@ function confirmation() {
 }
 
 /**
- * Stocker les plats choisi en array
+ * Save the items in a new array
  */
 function stockMenu(){
     let submitList = select('.chosenMenu');
-    let displayList = '';
-    let chosenList = select_all('input[type=checkbox]:checked');
+    let displayList = ''; //display for the pop-up
+    let chosenList = select_all('input[type=checkbox]:checked'); //select all items that were checked
     for (let chosen of chosenList) {
         for (let id in menu) {
             if (chosen.value == menu[id].itemName) {
                 pickedMenu.push({
-                    chosenItemID: menu[id].itemID,
                     chosenItem: menu[id].itemName,
                     chosenItemPrice: menu[id].itemPrice
                 });
@@ -113,25 +94,8 @@ function stockMenu(){
 function saveMenu(){
     let confirmMenu = confirm("Is the menu finalized?");
     if(confirmMenu){
-        let async_test = [];
-        let ajax_response = [];
-        for(let item of pickedMenu){
-            async_test.push($.ajax({
-                url: '/setweek',
-                method: 'get',
-                data:{chosenItemID: item.chosenItemID},
-                success: function(data){
-                    console.log('Item added to this week\'s menu!');
-                    ajax_response.push(data);
-                }
-            }));
-        }
-
-        $.when.apply(null, async_test).done(function(){
-            alert('Menu is set for this week!');
-            window.location.replace("/");
-        });
-
+        alert('Menu is set for this week!');
+        window.location.replace('./index.html');
     } else {
         $('.popup').style.display = "none";
     }

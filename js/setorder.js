@@ -1,14 +1,20 @@
 'use strict'
-let chosenMenu = [];
-let pickedMenu = new XMLHttpRequest(); //get data using HTTPRequest
-pickedMenu.open("get", "/weekchosen", true);
-pickedMenu.onload = function(){
-    chosenMenu = JSON.parse(this.responseText);
+//sample menu chosen for the week
+let chosenMenu = [
+    {weekItem: 'Summer Rolls', weekItemPrice: 5},
+    {weekItem: 'Crispy Fried Noodles', weekItemPrice: 12},
+    {weekItem: 'Leche Flan', weekItemPrice: 6}
+];
+
+function load(){
+    loadMenu();
 }
-pickedMenu.send();
 
 function loadMenu(){
     let chosenTable = '';
+    /* using the index of each item, it will help locate the item's price every time
+    * the subtotal is updated
+    */
     chosenMenu.map(function(menu, index){
         chosenTable += "<tr><td>" + menu.weekItem + "</td><td class='price'>"
             + menu.weekItemPrice + "€</td>"
@@ -19,11 +25,11 @@ function loadMenu(){
     select('#ordermenu').innerHTML = chosenTable;
 }
 
-let SUBTOTAL = select_all('.subtotal');
-let QUANTITY = select_all('.quantity');
+let SUBTOTAL = select_all('.subtotal'); //table that holds all subtotal values
+let QUANTITY = select_all('.quantity'); //table that holds all quantity values
 
 /**
- * Mettre à jour les caches de quantité et sous-total
+ * Update the subtotal and quantity arrays
  */
 function updateQuery(){
     SUBTOTAL = select_all('.subtotal');
@@ -31,9 +37,9 @@ function updateQuery(){
 }
 
 /**
- * @param quantity - quantité du plat
- * @param price - prix du plat
- * @param index - la position du plat dans le tableau
+ * @param quantity - item quantity
+ * @param price - item price
+ * @param index - item index in the table
  */
 function subtotal(quantity, price, index){
     updateQuery();
@@ -44,8 +50,8 @@ function subtotal(quantity, price, index){
 let orderTotal = 0;
 
 /**
- * Mettre à jour le sous-total à chaque fois qu'on
- * augmente ou diminue la quantité d'un plat
+ * Update the subtotal of the item and the total price of the order
+ * every time we add or subtract the quantity of a specific item
  */
 function updateTotal(){
     let total = 0;
@@ -56,72 +62,65 @@ function updateTotal(){
     select('.total').innerHTML = total.toFixed(2);
 }
 
-function load(){
-     loadMenu();
-}
-
 let FULL_RECEIPT = [];
 let SIMPLE_RECEIPT = {};
 
 /**
- * @param form - le billet complet
- * Séparer le billet complet en deux sous-billets
+ * @param form - the order receipt
+ * Creates a simple and comprehensive receipt of the order
  */
 function addOrder(form) {
+
+    /*add to simple receipt*/
     SIMPLE_RECEIPT['clientName'] = form.client.value;
     SIMPLE_RECEIPT['clientAddress'] = form.address.value;
     SIMPLE_RECEIPT['orderTotalPrice'] = orderTotal;
     console.log(SIMPLE_RECEIPT);
 
+    /*add to comprehensive receipt*/
     for (let index in QUANTITY) {
         if (QUANTITY[index].value > 0) {
             FULL_RECEIPT.push({
                 clientName: form.client.value,
-                orderItemID: chosenMenu[index].weekItemID,
+                orderItem: chosenMenu[index].weekItem,
                 orderItemQty: QUANTITY[index].value
             });
         }
     }
     console.log(FULL_RECEIPT);
+
+    displayReceipt();
+
+    /*display pop-up*/
     select('.popup').style.display = 'block';
+    let closeButton = select('.close');
+    closeButton.onclick = function() {
+        select('.popup').style.display = "none";
+    }
+    return false;
+}
+
+/*
+*   Display order details on a pop-up
+*/
+function displayReceipt(){
+    let display = '';
+    display += '<li>Client Name: ' + SIMPLE_RECEIPT.clientName + '</li>';
+    for(let item of FULL_RECEIPT){
+       display += '<li>' + item.orderItem + ' - ' + item.orderItemQty + '</li>';
+    }
+    display += '<li>Order Total: ' + SIMPLE_RECEIPT.orderTotalPrice + '€</li>';
+    select('.displayOrder').innerHTML = display;
 }
 
 /**
- * Sauvegarde le billet en deux tableaux: un billet simple avec le nom du client,
- * leur adrèsse, et le coût total; et un billet compréhensive avec la quantité
- * de chaque plat et leur sous-totale
- * @returns {Promise<void>} status
+ * Confirm the client's order
  */
 async function saveOrder(){
     let confirmOrder = confirm('Finalize order?');
     if(confirmOrder){
-        let simple_save = $.ajax({
-            url: "/simplereceipt",
-            method: 'get',
-            data:{orderClient: SIMPLE_RECEIPT.clientName, orderAddress: SIMPLE_RECEIPT.clientAddress, orderTotal: SIMPLE_RECEIPT.orderTotalPrice},
-            success: function(){
-                console.log('Client added!');
-            }
-        });
-        $.when.apply(null, simple_save).done(function(){
-            alert('Order registered!');
-        });
-        let receipt_status = 0;
-        for(let item of FULL_RECEIPT){
-            let item_request = await fetch(`/fullreceipt?orderClient=${item.clientName}&orderItemTag=${item.orderItemID}&orderItemQuan=${item.orderItemQty}`).catch(saveError=>{
-                console.log(saveError);
-                console.log('There\'s an error trying to save the menu.');
-            });
-            console.log(item_request);
-            let [{status}] = await item_request.json().catch(statusError =>{
-                console.log(statusError);
-                console.log('Either the status is not good or there was a problem with receiving the data.');
-            });
-            console.log(status);
-            receipt_status = status;
-        }
-        if(receipt_status != 200) alert('Error!');
-        else window.location.replace('/');
+        alert('Order registered!');
+        window.location.replace('./index.html');
     }else{
         select('.popup').style.display = 'none';
     }
